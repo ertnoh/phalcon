@@ -1,0 +1,48 @@
+<table class="table table-bordered">
+    <tr>
+        <th style="width: 220px">
+            <br><br>
+            <?php echo $this->tag->linkTo(["/", "На главную"]) ?>
+            <br><br>
+        </th>
+        <th>
+            <h1>
+                Результат теста
+            </h1>
+        </th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+
+            <table class="table table-bordered">
+
+                <tr>
+                    <th>ID</th>
+                    <th>Вопрос</th>
+                    <th>Результат опроса</th>
+                </tr>
+
+                <?php foreach ($questions as $question): ?>
+                    <tr>
+                        <td><?php echo $question->id ?></td>
+                        <td><?php echo $question->name ?></td>
+                        <td>
+                            <!-- Вывод ответов -->
+                            <?
+                                if(isset($result[$question->id])){
+                                    echo $result[$question->id];
+                                    echo "<br>";
+                                }
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            </table>
+
+        </td>
+
+    </tr>
+
+</table>

@@ -1,0 +1,69 @@
+<table class="table table-bordered">
+    <tr>
+        <th style="width: 220px">
+            <br><br>
+            <?php echo $this->tag->linkTo(["questions", "Заполнить вопросы"]) ?>
+            <br><br>
+            <?php echo $this->tag->linkTo(["answers", "Заполнить ответы"]) ?>
+            <br><br>
+        </th>
+        <th>
+            <h1>
+                Вопросы и ответы
+            </h1>
+        </th>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            <?
+                echo $this->tag->form(
+                    [
+                        "check",
+                        "autocomplete" => "off",
+                    ]
+                );
+            ?>
+            <table class="table table-bordered">
+
+                <tr>
+                    <td>ID</td>
+                    <td>Вопрос</td>
+                    <td>Варианты ответа</td>
+                </tr>
+
+                <?php foreach ($page->items as $question): ?>
+                    <tr>
+                        <td><?php echo $question->id ?></td>
+                        <td><?php echo $question->name ?></td>
+                        <td>
+                            <!-- Вывод checkbox для ответов -->
+                            <?
+                                if ($question->answers->count()) {
+                                    foreach ($question->answers as $answer) {
+                                        echo $this->tag->checkField([
+                                            "$answer->id",
+                                            "name" => "answers[]",
+                                            "value" => "$question->id-$answer->id",]);
+                                        echo " ".$answer->name;
+                                        echo "<br>";
+                                    }
+                                }
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+
+            </table>
+
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-10">
+                    <?php echo $this->tag->submitButton(["Проверить и сообщить результат", "class" => "btn btn-success"]) ?>
+                </div>
+            </div>
+            <?php echo $this->tag->endForm(); ?>
+        </td>
+
+    </tr>
+
+</table>
